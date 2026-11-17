@@ -1,0 +1,21 @@
+---
+page_title: "Provider: NoctHost"
+description: |-
+  Deploy and manage hourly-billed cloud servers on NoctHost.
+---
+
+# NoctHost Provider
+
+The NoctHost provider deploys and manages hourly-billed cloud servers on [NoctHost](https://nocthost.com): Vultr, DigitalOcean, Hetzner, Linode and more, from one account and one prepaid balance. It uses the [NoctHost API](https://nocthost.com/docs/api).
+
+Create an API key in the NoctHost dashboard under Profile, API keys, and pass it as `token` or in the `NOCTHOST_TOKEN` environment variable. The catalog data sources (`nocthost_regions`, `nocthost_gpu_plans`) read public data and work without a token.
+
+Servers are billed by the hour from your prepaid balance from the moment they are created until `terraform destroy` (or `tofu destroy`) removes them.
+
+## Example Usage
+
+{{ tffile "examples/provider/provider.tf" }}
+
+{{ tffile "examples/complete/main.tf" }}
+
+{{ .SchemaMarkdown | trimspace }}

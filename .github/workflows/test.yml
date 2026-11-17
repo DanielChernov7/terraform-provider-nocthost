@@ -1,0 +1,72 @@
+# Unit and mock-API acceptance tests. They run the provider through real
+# Terraform and OpenTofu binaries against an in-memory mock of the NoctHost
+# API, so no token is needed and nothing is deployed.
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - run: go mod download
+      - run: go build -v .
+      - run: go vet ./...
+      - name: Docs are up to date
+        run: |
+          go generate ./...
+          git diff --compact-exit-code docs/ || (echo "Run 'go generate ./...' and commit docs/" && exit 1)
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - cli: terraform
+            version: "1.9.*"
+          - cli: terraform
+            version: "1.14.*"
+          - cli: tofu
+            version: "1.10.*"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - if: matrix.cli == 'terraform'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ matrix.version }}
+          terraform_wrapper: false
+      - if: matrix.cli == 'tofu'
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: ${{ matrix.version }}
+          tofu_wrapper: false
+      - name: Run tests
+        run: |
+          if [ "${{ matrix.cli }}" = "tofu" ]; then
+            export TF_ACC_TERRAFORM_PATH="$(which tofu)"
+            export TF_ACC_PROVIDER_HOST=registry.opentofu.org
+          else
+            export TF_ACC_TERRAFORM_PATH="$(which terraform)"
+          fi
+          go test -v -cover ./...
