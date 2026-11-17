@@ -29,7 +29,7 @@ jobs:
       - name: Docs are up to date
         run: |
           go generate ./...
-          git diff --compact-exit-code docs/ || (echo "Run 'go generate ./...' and commit docs/" && exit 1)
+          git diff --exit-code docs/ || (echo "Run 'go generate ./...' and commit docs/" && exit 1)
 
   test:
     needs: build
