@@ -41,7 +41,7 @@ func (p *nocthostProvider) Metadata(_ context.Context, _ provider.MetadataReques
 func (p *nocthostProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "The NoctHost provider deploys and manages hourly-billed cloud servers on [NoctHost](https://nocthost.com) " +
-			"(Vultr, DigitalOcean, Hetzner, Linode and more, from one account and one prepaid balance). " +
+			"(Hetzner, Vultr, DigitalOcean, Linode, OVHcloud and Cherry Servers bare metal, from one account and one prepaid balance). " +
 			"See the [API reference](https://nocthost.com/docs/api).",
 		Attributes: map[string]schema.Attribute{
 			"token": schema.StringAttribute{

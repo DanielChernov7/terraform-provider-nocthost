@@ -6,7 +6,7 @@ description: |-
 
 # NoctHost Provider
 
-The NoctHost provider deploys and manages hourly-billed cloud servers on [NoctHost](https://nocthost.com): Vultr, DigitalOcean, Hetzner, Linode and more, from one account and one prepaid balance. It uses the [NoctHost API](https://nocthost.com/docs/api).
+The NoctHost provider deploys and manages hourly-billed cloud servers on [NoctHost](https://nocthost.com): Hetzner, Vultr, DigitalOcean, Linode, OVHcloud and Cherry Servers bare metal, from one account and one prepaid balance. It uses the [NoctHost API](https://nocthost.com/docs/api).
 
 Create an API key in the NoctHost dashboard under Profile, API keys, and pass it as `token` or in the `NOCTHOST_TOKEN` environment variable. The catalog data sources (`nocthost_regions`, `nocthost_gpu_plans`) read public data and work without a token.
 
