@@ -1,6 +1,6 @@
 # Terraform and OpenTofu provider for NoctHost
 
-Deploy and manage hourly-billed cloud servers on [NoctHost](https://nocthost.com) with Terraform or OpenTofu. NoctHost runs servers on Vultr, DigitalOcean, Hetzner, Linode and more from one account and one prepaid balance, topped up with crypto or a card.
+Deploy and manage hourly-billed cloud servers on [NoctHost](https://nocthost.com) with Terraform or OpenTofu. NoctHost runs servers on Hetzner, Vultr, DigitalOcean, Linode and OVHcloud, plus bare metal on Cherry Servers from one account and one prepaid balance, topped up with crypto or a card.
 
 - Website: https://nocthost.com
 - API reference: https://nocthost.com/docs/api
